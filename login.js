@@ -13,7 +13,7 @@ $("#login").click(function (e) {
 function passwordValidation(password) {
   if ((password = "pass123")) return true;
 }
-
+//joey
 function emailValidation(email) {
   if (email == "j@gmail.com") return true;
 }
