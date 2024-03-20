@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="center">
+      <h2>Sign Up</h2>
+      <div>
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        Password must be 8-20 characters long and contain at least one uppercase
+        letter, one lowercase letter, one number, and one special character.
+      </div>
+      <div>
+        <label for="password">Password:</label><br />
+        <input type="password" id="password" name="password" required />
+      </div>
+      <div>
+        <label for="confirm-password">Confirm Password:<br /></label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          required
+        />
+      </div>
+
+      <button id="signup">Sign Up</button>
+      <div class="error" id="errormsg">Invalid email or password</div>
+    </div>
+    <script src="index.js"></script>
+    <script src="vendor/jquery-3.7.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#errormsg").hide();
+      });
+
+      $("#signup").click(function (e) {
+        email = $("#email").val();
+        password = $("#password").val();
+        password2 = $("#confirm-password").val();
+        const userData = {
+          email: email,
+          password: password,
+        };
+        if (
+          password == password2 &&
+          emailValidation(email) &&
+          passwordValidation(password)
+        ) {
+          fetch("/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData),
+          })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error("Error:", error));
+          window.location.replace("homePage.html");
+        } else {
+          $("#errormsg").show();
+        }
+      });
+
+      // regex from https://www.baeldung.com/java-email-validation-regex
+      // prevents non email entry and sql injection
+      function emailValidation(email) {
+        const regex = /^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$/;
+        if (email.match(regex)) return true;
+      }
+
+      // regex from https://www.geeksforgeeks.org/javascript-program-to-validate-password-using-regular-expressions/
+      function passwordValidation(password) {
+        const regex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+        if (password.match(regex)) return true;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+body {
+  background-color: #383838;
+  font-size: 14px;
+  color: #ffffff;
+
+}
+
+form {
+  color: #ffffff
+}
+
+button {
+  background-image: linear-gradient(#dc9656, #ab4642);
+  color: #ffffff;
+}
+
+button:hover {
+  border-color: #dadce0;
+  box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
+  background-image: linear-gradient(#ab4642, #000080);
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #383838;
+  overflow: hidden;
+}
+
+
+/* button design from https://getcssscan.com/css-buttons-examples*/
+.topnav button {
+  background-image: none;
+  background-color: #383838;
+  border: 1px solid #383838;
+  border-radius: 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 27px;
+  min-width: 54px;
+  padding: 0 16px;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: pre;
+
+}
+
+.error {
+  color: red;
+}
+
+.topnav button:hover {
+  border-color: #dadce0;
+  box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
+  color: yellow;
+}
+
+.topnav button:focus {
+  border-color: #4285f4;
+  outline: none;
+}
