@@ -1,3 +1,7 @@
+/*
+Index.js contains all server side code
+*/
+
 import express from "express";
 import pkg from "pg";
 import bodyParser from "body-parser";
