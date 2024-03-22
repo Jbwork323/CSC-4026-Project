@@ -6,8 +6,8 @@ hidden = [".config", "package-lock.json"]
 channel = "stable-23_05"
 
 [deployment]
-run = ["node", "index.js"]
-deploymentTarget = "cloudrun"
+deploymentTarget = "static"
+publicDir = "/"
 
 [[ports]]
 localPort = 3000

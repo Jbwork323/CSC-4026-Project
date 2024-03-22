@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>replit</title>
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/style.css" rel="stylesheet" type="text/css" />
   </head>
 
   <body>
@@ -20,13 +20,13 @@
       </div>
       <button id="login">Login</button>
 
-      <a href="signup.html">
+      <a href="../view/signup.html">
         <button type="Sign up">Sign up</button>
       </a>
       <div class="error" id="errormsg">Invalid email or password</div>
     </div>
-    <script src="vendor/jquery-3.7.1.min.js"></script>
-    <script src="index.js"></script>
+    <script src="../vendor/jquery-3.7.1.min.js"></script>
+    <script src="../index.js"></script>
     <script>
       $(document).ready(function () {
         $("#errormsg").hide();
@@ -45,7 +45,7 @@
           .then((response) => response.json())
           .then((data) => {
             if (data.message === "Login successful") {
-              window.location.replace("homePage.html"); // Redirect on success
+              window.location.replace("../view/homePage.html"); // Redirect on success
             } else {
               $("#errormsg").show().text(data.message); // Show error message
             }

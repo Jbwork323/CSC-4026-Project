@@ -37,12 +37,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
-app.use(express.static(__dirname + "/view"));
-app.use(express.static(__dirname + "/scripts"));
 
 app.get("/", (req, res) => {
   //display index.html file in the views folder
-  res.sendFile(__dirname + "/view/index.html");
+  res.sendFile(__dirname + "/public/view/index.html");
 });
 
 app.post("/signup", async (req, res) => {
