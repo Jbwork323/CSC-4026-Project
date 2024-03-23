@@ -35,9 +35,8 @@
       <button id="signup">Sign Up</button>
       <div class="error" id="errormsg">Invalid email or password</div>
     </div>
-    <script src="../index.js"></script>
 
-    <script src="../vendor/jquery-3.7.1.min.js"></script>
+    <script src="vendor/jquery-3.7.1.min.js"></script>
 
     <script>
       $(document).ready(function () {
@@ -65,7 +64,7 @@
             .then((response) => response.json())
             .then((data) => console.log(data))
             .catch((error) => console.error("Error:", error));
-          window.location.replace("../view/homePage.html");
+          window.location.replace("homePage.html");
         } else {
           $("#errormsg").show();
         }

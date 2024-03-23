@@ -11,11 +11,11 @@ import fs from "fs";
 const { Pool } = pkg;
 const pool = new Pool({
   //these are all replit secrets
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
+  user: process.env["PGUSER"],
+  host: process.env["PGHOST"],
+  database: process.env["PGDATABASE"],
+  password: process.env["PGPASSWORD"],
+  port: process.env["PGPORT"],
   ssl: {
     sslmode: "require", // ensuring secure connection
   },
@@ -40,7 +40,7 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
   //display index.html file in the views folder
-  res.sendFile(__dirname + "/public/view/index.html");
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.post("/signup", async (req, res) => {

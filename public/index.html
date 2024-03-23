@@ -20,13 +20,14 @@
       </div>
       <button id="login">Login</button>
 
-      <a href="../view/signup.html">
+      <a href="signup.html">
         <button type="Sign up">Sign up</button>
       </a>
       <div class="error" id="errormsg">Invalid email or password</div>
     </div>
-    <script src="../vendor/jquery-3.7.1.min.js"></script>
-    <script src="../index.js"></script>
+
+    <script src="vendor/jquery-3.7.1.min.js"></script>
+
     <script>
       $(document).ready(function () {
         $("#errormsg").hide();
@@ -36,21 +37,32 @@
         e.preventDefault(); // Prevent default form submission
         const email = $("#email").val();
         const password = $("#password").val();
+        if (email == "" || password == "") {
+          $("#errormsg").show();
+          throw new Error("Email or password is empty");
+        }
         // Send login data to server
         fetch("/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              $("#errormsg").show();
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
           .then((data) => {
             if (data.message === "Login successful") {
-              window.location.replace("../view/homePage.html"); // Redirect on success
-            } else {
-              $("#errormsg").show().text(data.message); // Show error message
+              window.location.replace("homePage.html"); // Redirect on success
             }
           })
-          .catch((error) => console.error("Error:", error));
+          .catch((error) => {
+            console.error("Error:", error);
+            console.log("Invalid email or password");
+          });
       });
     </script>
   </body>

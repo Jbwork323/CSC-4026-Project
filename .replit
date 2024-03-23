@@ -7,7 +7,7 @@ channel = "stable-23_05"
 
 [deployment]
 deploymentTarget = "static"
-publicDir = "/"
+publicDir = "public"
 
 [[ports]]
 localPort = 3000
