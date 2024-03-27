@@ -23,8 +23,8 @@ const pool = new Pool({
 const app = express();
 
 // SSL certificate configuration
-const privateKey = fs.readFileSync("server.key", "utf8");
-const certificate = fs.readFileSync("server.cert", "utf8");
+const privateKey = process.env["SERVER_KEY"];
+const certificate = process.env["SERVER_CERT"];
 
 // Creating an HTTPS service like this:
 const credentials = { key: privateKey, cert: certificate };
