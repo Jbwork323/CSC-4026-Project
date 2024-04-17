@@ -1,6 +1,7 @@
 html {
   height: 100%;
   width: 100%;
+  font-family: 'Arial', sans-serif; /* Modern and clean font */
 }
 
 .center {
@@ -8,67 +9,63 @@ html {
 }
 
 body {
-  background-color: #383838;
-  font-size: 14px;
-  color: #ffffff;
-
+  background-color: #383838; 
+  font-size: 16px; /* Increased font size for better readability */
+  color: #e0e0e0; /* Softer white color for text */
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 form {
-  color: #ffffff
+  color: #e0e0e0; /* Matching form color with the body text */
 }
 
 button {
-  background-image: linear-gradient(#dc9656, #ab4642);
+  background-image: linear-gradient(#ffa200, #e06c00); 
   color: #ffffff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease; /* Smooth transition for hover effects */
 }
 
 button:hover {
-  border-color: #dadce0;
-  box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
-  background-image: linear-gradient(#ab4642, #000080);
+  background-image: linear-gradient(#40739e, #487eb0); /* Reverse gradient on hover */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
-/* Add a black background color to the top navigation */
 .topnav {
-  background-color: #383838;
   overflow: hidden;
+  padding: 10px 0; /* Added padding for spacing */
 }
 
-
-/* button design from https://getcssscan.com/css-buttons-examples*/
 .topnav button {
-  background-image: none;
-  background-color: #383838;
-  border: 1px solid #383838;
+  background-color: #333;
+  border: 1px solid #444; /* Subtle border for definition */
   border-radius: 4px;
   color: #FFFFFF;
   cursor: pointer;
-  font-family: arial, sans-serif;
+  font-family: 'Arial', sans-serif;
   font-size: 14px;
-  height: 36px;
-  line-height: 27px;
-  min-width: 54px;
-  padding: 0 16px;
+  height: auto; /* Auto height for padding control */
+  line-height: normal;
+  padding: 8px 16px; /* Increased padding for a larger click area */
   text-align: center;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: pre;
-
+  transition: all 0.3s ease; /* Consistent transition effect */
 }
 
 .error {
-  color: red;
+  color: #e74c3c; /* Brighter red for errors to catch attention */
 }
 
 .topnav button:hover {
-  border-color: #dadce0;
-  box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
-  color: yellow;
+  color: #81ecec; /* Lighter color on hover for distinction */
+  border-color: #81ecec; /* Border color matches text color on hover */
 }
 
 .topnav button:focus {
-  border-color: #4285f4;
-  outline: none;
+  border-color: #74b9ff; /* More noticeable focus border color */
+  outline: none; /* Removing outline for aesthetics */
 }

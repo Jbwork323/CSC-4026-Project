@@ -95,7 +95,6 @@ async function sendToServer(data) {
 }
 
 app.get("/getAccountInfo", (req, res) => {
-  console.log(req.session.email);
   if (req.session && req.session.email) {
     //send back email from session storage
     res.status(200).json({ email: req.session.email });

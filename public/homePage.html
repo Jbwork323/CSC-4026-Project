@@ -8,12 +8,12 @@
   </head>
 
   <body>
+    <h1><div id="hello">Hello</div></h1>
     <div class="topnav">
       <button id="file">File</button>
       <button id="edit">Edit</button>
     </div>
     <div class="topnav">
-      <h1><div id="hello">Hello</div></h1>
       <button id="add">+</button>
     </div>
     <div class="dynamic-area"></div>
@@ -33,7 +33,9 @@
             return response.json(); // assuming the server sends JSON response
           })
           .then((data) => {
-            $("#hello").text("Hello " + data.email);
+            $("#hello").text(
+              "Hello " + data.email + " begin making your survey",
+            );
           })
           .catch((error) => {
             console.error("Error:", error);
