@@ -13,11 +13,36 @@
       <button id="edit">Edit</button>
     </div>
     <div class="topnav">
+      <h1><div id="hello">Hello</div></h1>
       <button id="add">+</button>
     </div>
     <div class="dynamic-area"></div>
+
     <script src="vendor/jquery-3.7.1.min.js"></script>
     <script>
+      function dispEmail() {
+        fetch("/getAccountInfo", {
+          credentials: "include", // This ensures cookies are sent with the request
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                "Failed to fetch user's email. Status: " + response.status,
+              );
+            }
+            return response.json(); // assuming the server sends JSON response
+          })
+          .then((data) => {
+            $("#hello").text("Hello " + data.email);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      $(document).ready(function () {
+        dispEmail(); // Call dispEmail on document ready to fetch and display the email immediately
+      });
+
       $("#add").click(function (e) {
         // Create new input and button elements
         var $question = $(
