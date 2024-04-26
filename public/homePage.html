@@ -10,18 +10,26 @@
   <body>
     <h1><div id="hello">Hello</div></h1>
     <div class="topnav">
-      <button id="file">File</button>
-      <button id="edit">Edit</button>
+      <button id="save">Save</button>
+      <button id="load">Load</button>
+      <button id="new">New</button>
     </div>
     <div class="topnav">
-      <button id="add">+</button>
+      <button id="add">Add</button>
+      <br />
+      <button id="delete">Del</button>
     </div>
+    <form>
+      <label for="name"> Enter the Survey's name:</label>
+      <input type="text" id="name" placeholder="Survey Name" required="true" />
+    </form>
     <div class="dynamic-area"></div>
 
     <script src="vendor/jquery-3.7.1.min.js"></script>
     <script>
-      function dispEmail() {
-        fetch("/getAccountInfo", {
+      var surveyData;
+      function getAccountInfo() {
+        fetch("/getEmail", {
           credentials: "include", // This ensures cookies are sent with the request
         })
           .then((response) => {
@@ -42,11 +50,12 @@
           });
       }
       $(document).ready(function () {
-        dispEmail(); // Call dispEmail on document ready to fetch and display the email immediately
+        getAccountInfo(); // Call dispEmail on document ready to fetch and display the email immediately
       });
 
       $("#add").click(function (e) {
         // Create new input and button elements
+
         var $question = $(
           '<input type="text" class="dynamic-input" placeholder="Enter question"/>',
         );
@@ -55,18 +64,19 @@
           '<input type="text" class="dynamic-input" placeholder="Enter answers, comma seperated"/>',
         );
         var $addQuestion = $('<button class="dynamic-button">Add</button>');
+
         // Append elements to a specific part of the page, let's assume there's a container div with class 'dynamic-area'
+        // Append elements to the dynamic area
         $(".dynamic-area").append(
           $question,
           $answers,
           $addQuestion,
           $breakline,
         );
-
         $addQuestion.click(function () {
           var answersArray = $answers.val().split(",");
           var $form = $("<form></form>");
-          $form.append("<label>" + $question.val() + "</label><br>"); // Add the question as a label
+          $form.append("<label>" + $question.val() + "</label><br>"); // Add question as a label
           // Replace comma-separated answers from $answers into multiple choice options
           $.each(answersArray, function (index, value) {
             $form.append(
@@ -77,15 +87,65 @@
                 "<br>",
             );
           });
-          // Remove the initial input elements and breakline
+          // Remove the initial input elements and replace with the form
           $question.remove();
           $answers.remove();
           $addQuestion.remove();
           $breakline.remove();
-          // Append the form to the dynamic area
           $(".dynamic-area").append($form);
         });
       });
+
+      //making the del button remove last element added to dynamic area
+      $("#delete").click(function (e) {
+        // we do this four tiems because if the user clicks the del button
+        // while still making the question it will only remove one element
+        // such as one button or one text box
+        $(".dynamic-area").children().last().remove();
+        $(".dynamic-area").children().last().remove();
+        $(".dynamic-area").children().last().remove();
+        $(".dynamic-area").children().last().remove();
+      });
+      /*
+      $("#save").click(function (e) {
+        const surveyData = collectFormData();
+        sendFormData(surveyData);
+      });
+
+      function collectFormData() {
+        /*const questions = [];
+        $(".dynamic-area form").each(function () {
+          const questionText = $(this).find("label").text();
+          const answers = [];
+          $(this)
+            .find("input[type=radio]")
+            .each(function () {
+              answers.push($(this).val());
+            });
+          questions.push({ questionText, answers });
+        });
+        return { questions };
+        
+        const surveyData = {
+          name: $("#name").val(),
+          questions: [],
+        };
+        return { surveyData };
+      }
+
+      function sendFormData(surveyData) {
+        fetch("/saveSurvey", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(surveyData),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log("Survey saved:", data))
+          .catch((error) => console.error("Error saving survey:", error));
+      }
+      */
     </script>
   </body>
 </html>
