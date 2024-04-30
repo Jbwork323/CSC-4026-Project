@@ -89,6 +89,21 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+//create users table if it doesn't exist
+async function initializeDatabase() {
+  const createUsersTableQuery = `
+  CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      password TEXT NOT NULL
+  );`;
+  try {
+    await pool.query(createUsersTableQuery);
+    console.log("Users table is ready.");
+  } catch (error) {
+    console.error("Error initializing database:", error);
+  }
+}
 
 //encryption algo from from https://x-team.com/blog/storing-secure-passwords-with-postgresql/
 async function sendToServer(data) {
@@ -159,6 +174,8 @@ const certificate = process.env["SERVER_CERT"];
 const credentials = { key: privateKey, cert: certificate };
 const httpsServer = https.createServer(credentials, app);
 
-app.listen(3000, () => {
-  console.log("HTTPS server running");
+initializeDatabase().then(() => {
+  app.listen(3000, () => {
+    console.log("HTTPS server running");
+  });
 });
