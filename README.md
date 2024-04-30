@@ -1,6 +1,9 @@
 Joey's Survey App: This project for my CSC 4026 Secure Cloud Development class is a web based survey app that will eventually allow users to create, share, and see the results of surveys they create. 
 The app is developed using replit as an IDE, express as a server framework, jquery and nodejs on the client and server side respectively, and a neon postgreSQL server. 
 
+Current State: Currently, the project has a very basic survey creator that has little to no function. The main focus of the project so far has been learning how to create functionalities like logging in, signing up, and using things like https session storage
+to allow users to create accounts. User data is encrypted and sent to a neon postgresql server. This project is my first time integrating a front end website with a server and a database so there has been a lot of trial and error involved.
+
 User Manual:
 Replit Link: 
 
@@ -23,13 +26,21 @@ Now navigate to your Neon dashboard and take note of your connection string, thi
 
 Step 6: 
 Click on the  “missing secrets” warning in replit to open the secrets tab, inside you will see the secrets that are required. 
+
 For DATABASEURL, copy your entire connection string 
+
 For PGDATABASE, enter ‘neondb’ 
+
 For PGPORT, enter ‘5423’ 
+
 For PGUSER, enter ‘neondb_owner’ 
+
 For PGPASSWORD, enter the sequence of characters in your connection string beginning after “neondb_owner:” and ending before “@”. Ex. “neondb_owner:************@”. 
+
 For SERVER.CERT and SERVER.KEY, enter your ssl certifcation and key if you have one, or delete the secrets if you don’t. 
+
 For PGHOST, enter the url following “neondb_owner:************@” and ending at /neondb. This url should begin with ep- and end with neon.tech 
+
 Ensure all of the above secrets have been added before proceeding 
  
 Your project is now ready to run within replit!
