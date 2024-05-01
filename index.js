@@ -130,17 +130,7 @@ app.get("/getEmail", (req, res) => {
   }
 });
 
-/*
-grab user id
-select id from users where email = 'jbwork323@gmail.com'
-send survey data
-const result = await pool.query(
-"insert into surveys(surveyName, creator) values ($1, $2) returning *",
-[data.name, req.session.email]
-)
-
-then iterate through sending each question to the questions table
-*/
+//not functional 
 app.post("/saveSurvey", async (req, res) => {
   try {
     const result = await sendSurveyData(req.body, req.session.email);
@@ -150,7 +140,7 @@ app.post("/saveSurvey", async (req, res) => {
     res.json({ message: "Error saving survey", error: error.message });
   }
 });
-
+//not functional
 async function sendSurveyData(data, email) {
   try {
     var userId = await pool.query("select id from users where email = ($1)", [

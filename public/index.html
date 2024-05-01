@@ -37,9 +37,9 @@
         e.preventDefault(); // Prevent default form submission
         const email = $("#email").val();
         const password = $("#password").val();
-        if (email == "" || password == "") {
+        //make sure what was entered was an email address and valid password
+        if (!emailValidation(email) || !passwordValidation(password)) {
           $("#errormsg").show();
-          throw new Error("Email or password is empty");
         }
         // Send login data to server
         fetch("/login", {
@@ -64,6 +64,20 @@
             console.log("Invalid email or password");
           });
       });
+
+      // regex from https://www.baeldung.com/java-email-validation-regex
+      // prevents non email entry and sql injection
+      function emailValidation(email) {
+        const regex = /^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$/;
+        if (email.match(regex)) return true;
+      }
+
+      // regex from https://www.geeksforgeeks.org/javascript-program-to-validate-password-using-regular-expressions/
+      function passwordValidation(password) {
+        const regex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/;
+        if (password.match(regex)) return true;
+      }
     </script>
   </body>
 </html>
