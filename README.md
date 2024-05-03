@@ -4,7 +4,20 @@ The app is developed using replit as an IDE, express as a server framework, jque
 Current State: Currently, the project has a very basic survey creator that has little to no function. The main focus of the project so far has been learning how to create functionalities like logging in, signing up, and using things like https session storage
 to allow users to create accounts. User data is encrypted and sent to a neon postgresql server. This project is my first time integrating a front end website with a server and a database so there has been a lot of trial and error involved.
 
+Issues: 
+Currently the app can’t be deployed on Replit, I’m not 100% sure on the reason for this but I believe it has something to do with the way replit handles SSL certificates. The problem is that the server can’t connect with the database, rendering all login functionalities useless. 
+
+Security: 
+
+The client-side code and webpages on this project focus on security using mainly regular expressions to validate input. The only exception to this is the homePage.html.  This is because that page does not send or retrieve any data from the database and shouldn’t take any sensitive user information, so there’s little to no risk in having it be vulnerable. 
+
+Index.html serves as the login page for the project, it takes two input fields, email address and password. The front-end code has built in protection to ensure that the first entry is an email address using a regular expression, and that the second matches my specified password requirements. The email regex should prevent any SQL injection and the password requirements should fulfill part of this role. Once sent server-side, the html is sanitized, preventing cross site scripting attacks. The input is then used to query the database and attempt to log the user in. Passwords in the database are encrypted using the pgcrytpo extension for PostgreSql, the password is decrypted by running the same algorithm and then comparing the results. If both the email and password match and entry in the database, the user’s email address is stored within HTTPs session storage to be quickly accessed. 
+
+Signup.html also takes user input and uses it to query the database, so the same protections are applied. On the client side, the same two regex patterns are used to verify that the email address entered fits the format of an email address and that the password meets our expectations and both password entries match. After that the input is sent to the server to be added to the database. Before being added to the database the html is again sanitized to prevent XSS attacks.  
+
+ When adding an entry to the users table in the database, a user id is created for the user automatically, the email address is sent to the server as is, but the password is encrypted using the Postgre extension pgcrypto, specifically the gen_salt algorithm to create a random value to use to encrypt the password. More information can be found here https://www.postgresql.org/docs/current/pgcrypto.html. Using this algorithm ensures that even if two users have the same password, their encrypted passwords will be different.  
 User Manual:
+
 Replit Link: 
 
 https://replit.com/@WorkJoseph/CSC-4026-Joeys-Survey-App  
