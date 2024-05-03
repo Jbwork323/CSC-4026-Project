@@ -12,6 +12,8 @@ import https from "https";
 import fs from "fs";
 import session from "express-session";
 import sanitizeHtml from "sanitize-html";
+import http from "http";
+import path from "path";
 
 const { Pool } = pkg;
 const pool = new Pool({
@@ -35,6 +37,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
+
 // configure session middleware
 app.use(
   session({
@@ -58,6 +61,7 @@ app.get("/", (req, res) => {
 app.post("/signup", async (req, res) => {
   try {
     const result = await sendToServer(req.body);
+
     res.status(200).json({ message: "User added successfully", user: result });
   } catch (error) {
     res
@@ -68,6 +72,9 @@ app.post("/signup", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  if (req.session) {
+    req.session.email = req.email; // Ensuring the session contains the user's email after sign up
+  }
   const sanitizedEmail = sanitizeHtml(email);
   const sanitizedPassword = sanitizeHtml(password);
   try {
@@ -109,6 +116,7 @@ async function initializeDatabase() {
 async function sendToServer(data) {
   const sanitizedEmail = sanitizeHtml(data.email);
   const sanitizedPassword = sanitizeHtml(data.password);
+
   try {
     const result = await pool.query(
       "INSERT INTO users(email, password) VALUES($1, crypt($2,gen_salt('bf'))) RETURNING *",
@@ -130,7 +138,7 @@ app.get("/getEmail", (req, res) => {
   }
 });
 
-//not functional 
+//not functional
 app.post("/saveSurvey", async (req, res) => {
   try {
     const result = await sendSurveyData(req.body, req.session.email);
@@ -162,10 +170,9 @@ const certificate = process.env["SERVER_CERT"];
 
 // Creating an HTTPS service like this:
 const credentials = { key: privateKey, cert: certificate };
-const httpsServer = https.createServer(credentials, app);
-
+var httpsServer = https.createServer(credentials, app);
+var httpServer = http.createServer(app);
 initializeDatabase().then(() => {
-  app.listen(3000, () => {
-    console.log("HTTPS server running");
-  });
+  app.listen(3000);
+  //httpsServer.listen(443);
 });
