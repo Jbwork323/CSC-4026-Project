@@ -6,6 +6,7 @@ to allow users to create accounts. User data is encrypted and sent to a neon pos
 
 Issues: 
 Currently the app can’t be deployed on Replit, I’m not 100% sure on the reason for this but I believe it has something to do with the way replit handles SSL certificates. The problem is that the server can’t connect with the database, rendering all login functionalities useless. 
+When using replit's webview to interact with the project, session storage does not work however it does when opening the project in a new tab.
 Most of the buttons on the homepage.html page don't do anything yet, the only two that function are the add button which allows the user to create a very basic survey question, and the delete button that allows a user to delete an added question. The saving functionality is currently under progress but disabled right now and the rest have not been started. 
 A user's email address is not validated in the current build of the project, in the future a user will need to validate their email by entering a code sent to it before their information will be added to the database and they are allowed to access the full functionality of the application. 
 
@@ -62,6 +63,6 @@ For PGHOST, enter the url following “neondb_owner:************@” and ending 
 
 Ensure all of the above secrets have been added before proceeding 
  
-Your project is now ready to run within replit!
+Your project is now ready to run within replit! For best results when running the project, open the webpage in a new tab rather than using Replit's webview.
 
  
