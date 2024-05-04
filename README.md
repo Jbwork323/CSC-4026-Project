@@ -6,6 +6,8 @@ to allow users to create accounts. User data is encrypted and sent to a neon pos
 
 Issues: 
 Currently the app can’t be deployed on Replit, I’m not 100% sure on the reason for this but I believe it has something to do with the way replit handles SSL certificates. The problem is that the server can’t connect with the database, rendering all login functionalities useless. 
+Most of the buttons on the homepage.html page don't do anything yet, the only two that function are the add button which allows the user to create a very basic survey question, and the delete button that allows a user to delete an added question. The saving functionality is currently under progress but disabled right now and the rest have not been started. 
+A user's email address is not validated in the current build of the project, in the future a user will need to validate their email by entering a code sent to it before their information will be added to the database and they are allowed to access the full functionality of the application. 
 
 Security: 
 
@@ -16,6 +18,8 @@ Index.html serves as the login page for the project, it takes two input fields, 
 Signup.html also takes user input and uses it to query the database, so the same protections are applied. On the client side, the same two regex patterns are used to verify that the email address entered fits the format of an email address and that the password meets our expectations and both password entries match. After that the input is sent to the server to be added to the database. Before being added to the database the html is again sanitized to prevent XSS attacks.  
 
  When adding an entry to the users table in the database, a user id is created for the user automatically, the email address is sent to the server as is, but the password is encrypted using the Postgre extension pgcrypto, specifically the gen_salt algorithm to create a random value to use to encrypt the password. More information can be found here https://www.postgresql.org/docs/current/pgcrypto.html. Using this algorithm ensures that even if two users have the same password, their encrypted passwords will be different.  
+
+After the user's information has been added to the database, they are redirected to the login screen to login using their new credentials. This is for two reasons, one is too ensure that their account has actually been created, and two is to ensure that session storage has been initialized and contains their email address. Session storage will later be used to create full account functionality, allowing users to save and share their surveys. 
 User Manual:
 
 Replit Link: 
@@ -50,7 +54,8 @@ For PGUSER, enter ‘neondb_owner’
 
 For PGPASSWORD, enter the sequence of characters in your connection string beginning after “neondb_owner:” and ending before “@”. Ex. “neondb_owner:************@”. 
 
-For SERVER.CERT and SERVER.KEY, enter your ssl certifcation and key if you have one, or delete the secrets if you don’t. 
+For SERVER.CERT and SERVER.KEY, enter your ssl certifcation and key if you have one, or delete the secrets if you don’t. If you wish to create your own ssl key, you can do so using the shell
+terminal in replit, here is a guide https://www.gridhooks.com/security-articles/ssl/how-to-generate-a-private-key-for-an-ssl-certificate 
 
 For PGHOST, enter the url following “neondb_owner:************@” and ending at /neondb. This url should begin with ep- and end with neon.tech 
 
