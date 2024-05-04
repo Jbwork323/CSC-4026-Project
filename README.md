@@ -19,7 +19,8 @@ Signup.html also takes user input and uses it to query the database, so the same
 
  When adding an entry to the users table in the database, a user id is created for the user automatically, the email address is sent to the server as is, but the password is encrypted using the Postgre extension pgcrypto, specifically the gen_salt algorithm to create a random value to use to encrypt the password. More information can be found here https://www.postgresql.org/docs/current/pgcrypto.html. Using this algorithm ensures that even if two users have the same password, their encrypted passwords will be different.  
 
-After the user's information has been added to the database, they are redirected to the login screen to login using their new credentials. This is for two reasons, one is too ensure that their account has actually been created, and two is to ensure that session storage has been initialized and contains their email address. Session storage will later be used to create full account functionality, allowing users to save and share their surveys. 
+After the user's information has been added to the database, they are redirected to the login screen to login using their new credentials. This is for two reasons, one is too ensure that their account has actually been created, and two is to ensure that session storage has been initialized and contains their email address. Session storage will later be used to create full account functionality, allowing users to save and share their surveys.
+
 User Manual:
 
 Replit Link: 
